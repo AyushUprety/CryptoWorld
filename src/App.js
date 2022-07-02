@@ -2,7 +2,17 @@ import React from 'react'
 
  const app = () => {
   return (
-    <div>app</div>
+    <div className='app'>
+      <div className='navbar'>
+        
+      </div>
+      <div className='body'>
+
+      </div>
+      <div className='footer'>
+
+      </div>
+    </div>
   )
 }
 export default app;
