@@ -3,3 +3,4 @@ export { default as Homepage } from "./homepage.jsx";
 export { default as Exchange } from "./exchange.jsx";
 export { default as Cryptodetails } from "./cryptodetails.jsx";
 export { default as Cryptocurrencies } from "./Cryptocurrencies.jsx";
+export { default as Cryptonews } from "./Cryptonews.jsx";

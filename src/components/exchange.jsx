@@ -1,6 +1,6 @@
 import React from "react";
 
 const Exchange = () => {
-  return <div>exchange</div>;
+  return <div>Exchanges</div>;
 };
 export default Exchange;

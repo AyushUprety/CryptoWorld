@@ -7,6 +7,7 @@ import {
   Exchange,
   Cryptocurrencies,
   Cryptodetails,
+  Cryptonews,
 } from "./components/index";
 
 const App = () => {
@@ -24,6 +25,8 @@ const App = () => {
           <Route path="/cryptocurrencies" element={<Cryptocurrencies />} />
 
           <Route path="/crypto/:coinId" element={<Cryptodetails />} />
+
+          <Route path="/news" element={<Cryptonews />} />
         </Routes>
       </div>
       <div className="footer"></div>
