@@ -14,7 +14,7 @@ export const cryptoApi = createApi({
   endpoints: (builder) => ({
     // this function instantly returns an object
     getCryptos: builder.query({
-      query: () => makeRequest("/coins"),
+      query: () => makeRequest("/coins"), // Wrote a clean piece of code to pass headers using functions
     }),
   }),
 });

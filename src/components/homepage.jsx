@@ -9,6 +9,7 @@ const { Title } = Typography;
 const Homepage = () => {
   const { data, error } = useGetCryptosQuery();
   console.log(data);
+  const globalStats = data?.data?.stats;
   return (
     <>
       <Title level={2} className="heading">
@@ -16,22 +17,28 @@ const Homepage = () => {
       </Title>
       <Row gutter={[32, 32]}>
         <Col span={12}>
-          <Statistic title="Total Cryptocurrencies" />
+          <Statistic title="Total Cryptocurrencies" value={globalStats.total} />
         </Col>
         <Col span={12}>
-          <Statistic title="Total Exchanges" />
+          <Statistic
+            title="Total Exchanges"
+            value={globalStats.totalExchanges}
+          />
         </Col>
         <Col span={12}>
-          <Statistic title="Total Market Cap:" />
+          <Statistic
+            title="Total Market Cap:"
+            value={globalStats.totalMarketCap}
+          />
         </Col>
         <Col span={12}>
-          <Statistic title="Total 24h Volume" />
+          <Statistic
+            title="Total 24h Volume"
+            value={globalStats.total24hVolume}
+          />
         </Col>
         <Col span={12}>
-          <Statistic title="Total Cryptocurrencies" />
-        </Col>
-        <Col span={12}>
-          <Statistic title="Total Markets" />
+          <Statistic title="Total Markets" value={globalStats.totalMarkets} />
         </Col>
       </Row>
       <div className="home-heading-container">
