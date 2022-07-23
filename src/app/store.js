@@ -4,6 +4,6 @@ import { cryptoApi } from "../services/coinrankingapi";
 
 export const store = configureStore({
   reducer: {
-    [cryptoApi.reducerPath]: cryptoApi.reducer,
+    [cryptoApi.reducerPath]: cryptoApi.reducer, // Application is connected
   },
 });
