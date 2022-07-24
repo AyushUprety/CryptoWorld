@@ -53,7 +53,8 @@ const Homepage = () => {
           Top 10 Cryptos In The World
         </Title>
         <Title level={3} className="show-more">
-          <Link to="/cryptocurrencies">Show more</Link>
+          <Link to="/cryptocurrencies">Show more</Link>{" "}
+          {/*Upon clicking show more simply display cryptocurrencies. Now, you will see all the coins */}
         </Title>
       </div>
       <CryptoCurrency simplified />

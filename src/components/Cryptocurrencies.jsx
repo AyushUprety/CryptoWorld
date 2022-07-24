@@ -8,9 +8,13 @@ const Cryptocurrencies = ({ simplified }) => {
   const count = simplified ? 10 : 100;
   const { data: cryptoCoins, isLoading } = useGetCryptosQuery(count); // renamed data to cryptoCoins
   const [coins, setCoins] = useState(cryptoCoins?.data?.coins);
+  const [input, setInput] = useState("");
   if (isLoading) return "Loading...";
   return (
     <>
+      <div className="coinSearch">
+        <input onChange={(e) => setInput(e.target.value)} />
+      </div>
       <Row gutter={[32, 32]} className="crypto-card-container">
         {coins.map((currency) => (
           <Col xs={24} sm={12} lg={6} className="crypto-card" key={currency.id}>
