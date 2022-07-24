@@ -9,7 +9,7 @@ import CryptoNews from "./Cryptonews";
 const { Title } = Typography;
 
 const Homepage = () => {
-  const { data, isLoading } = useGetCryptosQuery();
+  const { data, isLoading } = useGetCryptosQuery(10);
   console.log(data);
   const globalStats = data?.data?.stats; //optinal chaining rather than returning error it returns undefined
 
@@ -57,7 +57,6 @@ const Homepage = () => {
         </Title>
       </div>
       <CryptoCurrency simplified />
-
       <div className="home-heading-container">
         <Title level={2} className="home-title">
           Latest Crypto News
@@ -66,7 +65,8 @@ const Homepage = () => {
           <Link to="/news">Show more</Link>
         </Title>
       </div>
-      <CryptoNews simplified />
+      <CryptoNews simplified />{" "}
+      {/* simplified is passed as children to CryptoNews as a true. If nothing is passed in it will automatically be evaluated to true */}
     </>
   );
 };

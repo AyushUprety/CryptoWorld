@@ -5,9 +5,9 @@ import { Link } from "react-router-dom";
 import { Card, Row, Col, Input } from "antd";
 
 const Cryptocurrencies = () => {
-  const { data: cryptoCoins, isLoading } = useGetCryptosQuery(); // renamed data to cryptoCoins
+  const { data: cryptoCoins, isLoading } = useGetCryptosQuery(10); // renamed data to cryptoCoins
   const [coins, setCoins] = useState(cryptoCoins?.data?.coins);
-  console.log(coins);
+  if (isLoading) return "Loading...";
   return (
     <>
       <Row gutter={[32, 32]} className="crypto-card-container">
@@ -20,8 +20,8 @@ const Cryptocurrencies = () => {
                 hoverable
               >
                 <p>Price:{millify(currency.price)}</p>
-                <p>Price:{millify(currency.marketCap)}</p>
-                <p>Price:{millify(currency.change)}%</p>
+                <p>MarketCap:{millify(currency.marketCap)}</p>
+                <p>DailyChange:{millify(currency.change)}%</p>
               </Card>
             </Link>
           </Col>
