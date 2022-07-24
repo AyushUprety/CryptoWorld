@@ -5,22 +5,26 @@ import { Link } from "react-router-dom";
 import { Card, Row, Col, Input } from "antd";
 
 const Cryptocurrencies = () => {
-  const { data, isLoading } = useGetCryptosQuery();
-  const [coins, setCoins] = useState(data?.data?.coins);
+  const { data: cryptoCoins, isLoading } = useGetCryptosQuery(); // renamed data to cryptoCoins
+  const [coins, setCoins] = useState(cryptoCoins?.data?.coins);
   console.log(coins);
   return (
     <>
       <Row gutter={[32, 32]} className="crypto-card-container">
-        {cryptos.map((currency) => (
-          <col xs={24} sm={12} lg={6} className="crypto-card" key={currency.id}>
+        {coins.map((currency) => (
+          <Col xs={24} sm={12} lg={6} className="crypto-card" key={currency.id}>
             <Link to={`/crypto/${currency.id}`}>
               <Card
                 title={`${currency.rank}. ${currency.name}`}
                 extra={<img className="crypto-image" src={currency.iconUrl} />}
                 hoverable
-              ></Card>
+              >
+                <p>Price:{millify(currency.price)}</p>
+                <p>Price:{millify(currency.marketCap)}</p>
+                <p>Price:{millify(currency.change)}%</p>
+              </Card>
             </Link>
-          </col>
+          </Col>
         ))}
       </Row>
     </>
