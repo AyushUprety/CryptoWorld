@@ -3,15 +3,17 @@ import millify from "millify";
 import { Typography, Row, Col, Statistic } from "antd";
 import { Link } from "react-router-dom";
 import { useGetCryptosQuery } from "../services/coinrankingapi";
+import CryptoCurrency from "./Cryptocurrencies";
+import CryptoNews from "./Cryptonews";
 
 const { Title } = Typography;
 
 const Homepage = () => {
-  const { data, isFetching } = useGetCryptosQuery();
+  const { data, isLoading } = useGetCryptosQuery();
   console.log(data);
   const globalStats = data?.data?.stats; //optinal chaining rather than returning error it returns undefined
 
-  if (isFetching) return "Loading...";
+  if (isLoading) return "Loading...";
   return (
     <>
       <Title level={2} className="heading">
@@ -54,6 +56,7 @@ const Homepage = () => {
           <Link to="/cryptocurrencies">Show more</Link>
         </Title>
       </div>
+      <CryptoCurrency simplified />
 
       <div className="home-heading-container">
         <Title level={2} className="home-title">
@@ -63,6 +66,7 @@ const Homepage = () => {
           <Link to="/news">Show more</Link>
         </Title>
       </div>
+      <CryptoNews simplified />
     </>
   );
 };
