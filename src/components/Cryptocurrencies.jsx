@@ -4,8 +4,9 @@ import { useGetCryptosQuery } from "../services/coinrankingapi";
 import { Link } from "react-router-dom";
 import { Card, Row, Col, Input } from "antd";
 
-const Cryptocurrencies = () => {
-  const { data: cryptoCoins, isLoading } = useGetCryptosQuery(10); // renamed data to cryptoCoins
+const Cryptocurrencies = ({ simplified }) => {
+  const count = simplified ? 10 : 100;
+  const { data: cryptoCoins, isLoading } = useGetCryptosQuery(count); // renamed data to cryptoCoins
   const [coins, setCoins] = useState(cryptoCoins?.data?.coins);
   if (isLoading) return "Loading...";
   return (
