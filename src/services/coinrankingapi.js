@@ -19,5 +19,5 @@ export const cryptoApi = createApi({
   }),
 });
 export const {
-  useGetCryptosQuery, // creates a hook that gets all data for your query
+  useGetCryptosQuery, // creates a hook that gets all data for your query redux ko documentation ma clearly deko xa
 } = cryptoApi; // This is coming from cryptoApi
