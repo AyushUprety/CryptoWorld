@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import { React, useState, useEffect } from "react";
 import millify from "millify";
 import { useGetCryptosQuery } from "../services/coinrankingapi";
 import { Link } from "react-router-dom";
@@ -9,7 +9,15 @@ const Cryptocurrencies = ({ simplified }) => {
   const { data: cryptoCoins, isLoading } = useGetCryptosQuery(count); // renamed data to cryptoCoins
   const [coins, setCoins] = useState(cryptoCoins?.data?.coins);
   const [input, setInput] = useState("");
+  useEffect(() => {
+    setCoins(
+      coins.filter((coin) =>
+        coin.name.toLowerCase().includes(input.toLowerCase())
+      )
+    );
+  }, [input, cryptoCoins]);
   if (isLoading) return "Loading...";
+
   return (
     <>
       <div className="coinSearch">
