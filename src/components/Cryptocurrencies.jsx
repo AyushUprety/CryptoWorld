@@ -6,17 +6,21 @@ import { Card, Row, Col, Input } from "antd";
 
 const Cryptocurrencies = ({ simplified }) => {
   const count = simplified ? 10 : 100;
-  const { data: cryptoCoins, isLoading } = useGetCryptosQuery(count); // renamed data to cryptoCoins
-  const [coins, setCoins] = useState(cryptoCoins?.data?.coins);
+  const { data: cryptoCoins, isFetching } = useGetCryptosQuery(count); // renamed data to cryptoCoins
+  const [cryptos, setCryptos] = useState();
   const [input, setInput] = useState("");
+
   useEffect(() => {
-    setCoins(
-      coins.filter((coin) =>
-        coin.name.toLowerCase().includes(input.toLowerCase())
-      )
+    setCryptos(cryptoCoins?.data?.coins);
+
+    const filteredData = cryptoCoins?.data?.coins.filter((item) =>
+      item.name.toLowerCase().includes(input.toLowerCase())
     );
-  }, [input, cryptoCoins]);
-  if (isLoading) return "Loading...";
+
+    setCryptos(filteredData);
+  }, [cryptoCoins, input]);
+
+  if (isFetching) return "Fetching...";
 
   return (
     <>
@@ -24,7 +28,7 @@ const Cryptocurrencies = ({ simplified }) => {
         <input onChange={(e) => setInput(e.target.value)} />
       </div>
       <Row gutter={[32, 32]} className="crypto-card-container">
-        {coins.map((currency) => (
+        {cryptos?.map((currency) => (
           <Col xs={24} sm={12} lg={6} className="crypto-card" key={currency.id}>
             <Link to={`/crypto/${currency.id}`}>
               <Card
