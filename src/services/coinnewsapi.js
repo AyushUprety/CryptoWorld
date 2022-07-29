@@ -9,9 +9,9 @@ const baseUrl = "https://bing-news-search1.p.rapidapi.com";
 // Define a service using a base URL and expected endpoints
 export const cryptoNewsApi = createApi({
   reducerPath: "cryptoNewsApi",
-  baseQuery: fetchBaseQuery({ baseUrl: "https://pokeapi.co/api/v2/" }),
+  baseQuery: fetchBaseQuery({ baseUrl }),
   endpoints: (builder) => ({
-    getPokemonByName: builder.query({
+    getNews: builder.query({
       query: (name) => `pokemon/${name}`,
     }),
   }),
