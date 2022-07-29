@@ -5,13 +5,13 @@ import { Link } from "react-router-dom";
 import { Card, Row, Col, Input } from "antd";
 
 const Cryptocurrencies = ({ simplified }) => {
-  const count = simplified ? 10 : 100;
+  const count = simplified ? 10 : 100; //--> 10 to display in home page and 100 to display on crypto page
   const { data: cryptoCoins, isFetching } = useGetCryptosQuery(count); // renamed data to cryptoCoins
   const [cryptos, setCryptos] = useState();
   const [input, setInput] = useState("");
 
   useEffect(() => {
-    setCryptos(cryptoCoins?.data?.coins);
+    setCryptos(cryptoCoins?.data?.coins); //-> undefined returned garda don't return an errror.
 
     const filteredData = cryptoCoins?.data?.coins.filter((item) =>
       item.name.toLowerCase().includes(input.toLowerCase())
@@ -19,14 +19,20 @@ const Cryptocurrencies = ({ simplified }) => {
 
     setCryptos(filteredData);
   }, [cryptoCoins, input]);
-
-  if (isFetching) return "Fetching...";
+  console.log(cryptos);
+  if (isFetching) return "Fetching..."; // useFetching if you want to request multiple times. Use loading if you request only one time
 
   return (
     <>
-      <div className="coinSearch">
-        <input onChange={(e) => setInput(e.target.value)} />
-      </div>
+      {!simplified && (
+        <div className="search-crypto">
+          <input
+            placeholder="Search Cryptocurrency"
+            onChange={(e) => setInput(e.target.value)}
+          />
+        </div>
+      )}
+
       <Row gutter={[32, 32]} className="crypto-card-container">
         {cryptos?.map((currency) => (
           <Col xs={24} sm={12} lg={6} className="crypto-card" key={currency.id}>
