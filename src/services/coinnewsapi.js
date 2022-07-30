@@ -12,9 +12,11 @@ export const cryptoNewsApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl }),
   endpoints: (builder) => ({
     getNews: builder.query({
-      query: (name, count) =>
-        `/news/search?q=/${name}&count=${count}&safeSearch=${off}`,
+      query: (category, count) => ({
+        url: `/news/search?q=/${category}&count=${count}&safeSearch=off&textFormat=Raw&freshness=Day`,
+        headers: newsAPiHeaders,
+      }), // cryptojs sanga compare gar confusion vayo
     }),
   }),
 });
-export const { useGetPokemonByNameQuery } = pokemonApi;
+export const { useGetNewsQuery } = cryptoNewsApi;
