@@ -12,7 +12,8 @@ export const cryptoNewsApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl }),
   endpoints: (builder) => ({
     getNews: builder.query({
-      query: (name) => `pokemon/${name}`,
+      query: (name, count) =>
+        `/news/search?q=/${name}&count=${count}&safeSearch=${off}`,
     }),
   }),
 });
