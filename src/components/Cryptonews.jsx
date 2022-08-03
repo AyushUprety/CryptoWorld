@@ -1,5 +1,6 @@
 import { CategoryScale } from "chart.js";
 import React from "react";
+import { useState } from "react";
 import { useGetNewsQuery } from "../services/coinnewsapi";
 
 const Cryptonews = ({ simplified }) => {
@@ -9,8 +10,10 @@ const Cryptonews = ({ simplified }) => {
     { category },
     { count }
   );
+  const [news, setNews] = useState(cryptoNews?.data?.coins);
+  console.log(news);
+
   if (isFetching) return "loading...";
-  console.log(cryptoNews);
   return <div>Cryptonews</div>;
 };
 
