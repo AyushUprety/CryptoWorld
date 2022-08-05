@@ -3,8 +3,9 @@ import { useState } from "react";
 import { useGetNewsQuery } from "../services/coinnewsapi";
 import { CategoryScale } from "chart.js";
 import { Select, Typography, Row, Col, Avatar, Card } from "antd";
-const { Text, Title } = Typography;
+import moment from "moment";
 
+const { Text, Title } = Typography;
 const Cryptonews = ({ simplified }) => {
   const count = simplified ? 6 : 12; //--> 10 to display in home page and 100 to display on crypto page
   const category = "cryptocurrencies";
@@ -33,6 +34,21 @@ const Cryptonews = ({ simplified }) => {
                   ? `${news.description.substring(0, 100)}...` // wrote a logic to display only 100 words in paragraph
                   : news.description}
               </p>
+              <div className="provider-container">
+                <div>
+                  <Avatar
+                    src={
+                      news.provider[0]?.image?.thumbnail?.contentUrl ||
+                      demoImage
+                    }
+                    alt=""
+                  />
+                  <Text className="provider-name">
+                    {news.provider[0]?.name}
+                  </Text>
+                </div>
+                <Text>{moment(news.datePublished).fromNow()}</Text>
+              </div>
             </a>
           </Card>
         </Col>
