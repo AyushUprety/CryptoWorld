@@ -7,15 +7,21 @@ const newsAPiHeaders = {
 };
 const baseUrl = "https://bing-news-search1.p.rapidapi.com";
 // Define a service using a base URL and expected endpoints
+const makeRequest = (url) => ({
+  //why ( is required
+  url,
+  headers: newsAPiHeaders,
+});
+
 export const cryptoNewsApi = createApi({
   reducerPath: "cryptoNewsApi",
   baseQuery: fetchBaseQuery({ baseUrl }),
   endpoints: (builder) => ({
     getNews: builder.query({
-      query: (category, count) => ({
-        url: `/news/search?q=/${category}&count=${count}&safeSearch=off&textFormat=Raw&freshness=Day`,
-        headers: newsAPiHeaders,
-      }), // cryptojs sanga compare gar confusion vayo
+      query: ({ category, count }) =>
+        makeRequest(
+          `/news/search?q=${category}&safeSearch=Off&textFormat=Raw&freshness=Day&count=${count}`
+        ), // cryptojs sanga compare gar confusion vayo
     }),
   }),
 });

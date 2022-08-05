@@ -5,15 +5,11 @@ import { useGetNewsQuery } from "../services/coinnewsapi";
 
 const Cryptonews = ({ simplified }) => {
   const count = simplified ? 10 : 100; //--> 10 to display in home page and 100 to display on crypto page
-  const category = "/cryptocurrencies";
-  const { data: cryptoNews, isFetching } = useGetNewsQuery(
-    { category },
-    { count }
-  );
-  const [news, setNews] = useState(cryptoNews?.data?.coins);
-  console.log(news);
-
+  const category = "cryptocurrencies";
+  const { data: cryptoNews, isFetching } = useGetNewsQuery({ category, count });
+  const [news, setNews] = useState(cryptoNews?.value);
   if (isFetching) return "loading...";
+  console.log(cryptoNews?.value);
   return <div>Cryptonews</div>;
 };
 
