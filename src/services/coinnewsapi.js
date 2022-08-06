@@ -18,9 +18,9 @@ export const cryptoNewsApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl }),
   endpoints: (builder) => ({
     getNews: builder.query({
-      query: ({ category, count }) =>
+      query: ({ newsCategory, count }) =>
         makeRequest(
-          `/news/search?q=${category}&safeSearch=Off&textFormat=Raw&freshness=Day&count=${count}`
+          `/news/search?q=${newsCategory}&safeSearch=Off&textFormat=Raw&freshness=Day&count=${count}`
         ), // cryptojs sanga compare gar confusion vayo
     }),
   }),

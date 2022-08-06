@@ -16,7 +16,7 @@ const Cryptonews = ({ simplified }) => {
     "https://www.bing.com/th?id=OVFT.mpzuVZnv8dwIMRfQGPbOPC&pid=News";
   const { data: cryptoNews, isFetching } = useGetNewsQuery({
     newsCategory,
-    count,
+    count: simplified ? 6 : 12,
   });
   if (isFetching) return "loading...";
   console.log(cryptoNews?.value);
