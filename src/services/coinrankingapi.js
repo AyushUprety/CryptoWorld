@@ -17,7 +17,7 @@ export const cryptoApi = createApi({
       query: (totalCoins) => makeRequest(`/coins?limit=${totalCoins}`), // Wrote a clean piece of code to pass headers using functions
     }),
     getCoinDetails: builder.query({
-      query: ({ coinId }) => makeRequest(`/${coinId}`),
+      query: (coinId) => makeRequest(`/coin/${coinId}`),
     }),
   }),
 });
