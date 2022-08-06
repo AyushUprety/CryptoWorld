@@ -16,8 +16,12 @@ export const cryptoApi = createApi({
     getCryptos: builder.query({
       query: (totalCoins) => makeRequest(`/coins?limit=${totalCoins}`), // Wrote a clean piece of code to pass headers using functions
     }),
+    getCoinDetails: builder.query({
+      query: ({ coinId }) => makeRequest(`/${coinId}`),
+    }),
   }),
 });
 export const {
-  useGetCryptosQuery, // creates a hook that gets all data for your query redux ko documentation ma clearly deko xa
+  useGetCryptosQuery,
+  useGetCoinDetailsQuery, // creates a hook that gets all data for your query redux ko documentation ma clearly deko xa
 } = cryptoApi; // This is coming from cryptoApi

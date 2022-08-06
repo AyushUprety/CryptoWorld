@@ -15,17 +15,14 @@ import {
   ThunderboltOutlined,
 } from "@ant-design/icons";
 
-import {
-  useGetCryptoDetailsQuery,
-  useGetCryptoHistoryQuery,
-} from "../services/cryptoApi";
-import Loader from "./Loader";
-import LineChart from "./LineChart";
+import { useGetCoinDetailsQuery } from "../services/cryptoApi";
 
 const { Title, Text } = Typography;
 const { Option } = Select;
 
 const Cryptodetails = () => {
+  const { coinId } = useParams();
+  const [timePeriod, setTimePeriod] = useState("7d");
   return <div></div>;
 };
 
