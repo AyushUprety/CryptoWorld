@@ -19,9 +19,14 @@ export const cryptoApi = createApi({
     getCoinDetails: builder.query({
       query: (coinId) => makeRequest(`/coin/${coinId}`),
     }),
+    getCryptosHistory: builder.query({
+      query: ({ coinId, timeperiod }) =>
+        makeRequest(`/coin/${coinId}/history/${timeperiod}`),
+    }),
   }),
 });
 export const {
   useGetCryptosQuery,
   useGetCoinDetailsQuery, // creates a hook that gets all data for your query redux ko documentation ma clearly deko xa
+  useGetCryptosHistoryQuery,
 } = cryptoApi; // This is coming from cryptoApi
