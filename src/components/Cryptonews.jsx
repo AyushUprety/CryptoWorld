@@ -4,18 +4,43 @@ import { useGetNewsQuery } from "../services/coinnewsapi";
 import { CategoryScale } from "chart.js";
 import { Select, Typography, Row, Col, Avatar, Card } from "antd";
 import moment from "moment";
+import { useGetCryptosQuery } from "../services/coinrankingapi";
+const { Option } = Select;
 
 const { Text, Title } = Typography;
 const Cryptonews = ({ simplified }) => {
-  const count = simplified ? 6 : 12; //--> 10 to display in home page and 100 to display on crypto page
-  const category = "cryptocurrencies";
+  const count = simplified ? 6 : 100; //--> 10 to display in home page and 100 to display on crypto page
+  const [newsCategory, setNewsCategory] = useState("Cryptocurrency");
+  const { data } = useGetCryptosQuery(12);
   const demoImage =
     "https://www.bing.com/th?id=OVFT.mpzuVZnv8dwIMRfQGPbOPC&pid=News";
-  const { data: cryptoNews, isFetching } = useGetNewsQuery({ category, count });
+  const { data: cryptoNews, isFetching } = useGetNewsQuery({
+    newsCategory,
+    count,
+  });
   if (isFetching) return "loading...";
   console.log(cryptoNews?.value);
   return (
     <Row gutter={[24, 24]}>
+      {!simplified && (
+        <Col span={24}>
+          <Select
+            showSearch
+            className="select-news"
+            placeholder="Select a Crypto"
+            optionFilterProp="children"
+            onChange={(value) => setNewsCategory(value)}
+            filterOption={(input, option) =>
+              option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+            }
+          >
+            <Option value="Cryptocurency">Cryptocurrency</Option>
+            {data?.data?.coins?.map((currency) => (
+              <Option value={currency.name}>{currency.name}</Option>
+            ))}
+          </Select>
+        </Col>
+      )}
       {cryptoNews.value.map((news, i) => (
         <Col xs={24} sm={12} lg={8} key={i}>
           <Card hoverable className="news-card">
@@ -25,6 +50,7 @@ const Cryptonews = ({ simplified }) => {
                   {news.name}
                 </Title>
                 <img
+                  style={{ maxWidth: "200px", maxHeight: "100px" }}
                   src={news?.image?.thumbnail?.contentUrl || demoImage}
                   alt="news"
                 />
