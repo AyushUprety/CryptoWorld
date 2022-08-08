@@ -3,8 +3,6 @@ import HTMLReactParser from "html-react-parser";
 import { useParams } from "react-router-dom";
 import millify from "millify";
 import { Col, Row, Typography, Select } from "antd";
-import { useGetCryptoHistoryQuery } from "../services/coinrankingapi";
-import LineChart from "./lineChart";
 import {
   MoneyCollectOutlined,
   DollarCircleOutlined,
@@ -17,24 +15,29 @@ import {
   ThunderboltOutlined,
 } from "@ant-design/icons";
 
-import { useGetCoinDetailsQuery } from "../services/coinrankingapi";
+import {
+  useGetCoinDetailsQuery,
+  useGetCryptoHistoryQuery,
+} from "../services/coinrankingapi";
+import Loader from "./Loader";
+import LineChart from "./LineChart";
 
 const { Title, Text } = Typography;
 const { Option } = Select;
 
 const CryptoDetails = () => {
   const { coinId } = useParams();
-  const [timePeriod, setTimePeriod] = useState("7d");
+  const [timeperiod, setTimeperiod] = useState("7d");
   const { data, isFetching } = useGetCoinDetailsQuery(coinId);
   const { data: coinHistory } = useGetCryptoHistoryQuery({
     coinId,
-    timePeriod,
+    timeperiod,
   });
-
   const cryptoDetails = data?.data?.coin;
-  console.log(cryptoDetails);
+  console.log(coinHistory);
+  console.log(timeperiod);
 
-  if (isFetching) return "loading...";
+  if (isFetching) return <Loader />;
 
   const time = ["3h", "24h", "7d", "30d", "1y", "3m", "3y", "5y"];
 
@@ -47,7 +50,9 @@ const CryptoDetails = () => {
     { title: "Rank", value: cryptoDetails?.rank, icon: <NumberOutlined /> },
     {
       title: "24h Volume",
-      value: `$ ${cryptoDetails?.volume && millify(cryptoDetails?.volume)}`,
+      value: `$ ${
+        cryptoDetails?.["24hVolume"] && millify(cryptoDetails?.["24hVolume"])
+      }`,
       icon: <ThunderboltOutlined />,
     },
     {
@@ -119,16 +124,16 @@ const CryptoDetails = () => {
         defaultValue="7d"
         className="select-timeperiod"
         placeholder="Select Timeperiod"
-        onChange={(value) => setTimePeriod(value)}
+        onChange={(value) => setTimeperiod(value)}
       >
         {time.map((date) => (
           <Option key={date}>{date}</Option>
         ))}
       </Select>
       <LineChart
-        coinhistory={coinHistory}
-        currentprice={millify(cryptoDetails?.price)}
-        coinname={cryptoDetails?.name}
+        coinHistory={coinHistory}
+        currentPrice={millify(cryptoDetails?.price)}
+        coinName={cryptoDetails?.name}
       />
       <Col className="stats-container">
         <Col className="coin-value-statistics">
@@ -158,8 +163,7 @@ const CryptoDetails = () => {
             </Title>
             <p>
               An overview showing the statistics of {cryptoDetails.name}, such
-              as the base and quote currency, the rank, and trading
-              volume.uuid24
+              as the base and quote currency, the rank, and trading volume.
             </p>
           </Col>
           {genericStats.map(({ icon, title, value }) => (
