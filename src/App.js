@@ -5,7 +5,6 @@ import "./App.css";
 import {
   Navbar,
   Homepage,
-  Exchange,
   Cryptocurrencies,
   Cryptodetails,
   Cryptonews,
@@ -22,8 +21,6 @@ const App = () => {
           <div className="routes">
             <Routes>
               <Route path="/" element={<Homepage />} />
-
-              <Route path="/exchanges" element={<Exchange />} />
 
               <Route path="/cryptocurrencies" element={<Cryptocurrencies />} />
 
@@ -44,7 +41,6 @@ const App = () => {
           </Typography.Title>
           <Space>
             <Link to="/">Home</Link>
-            <Link to="/exchanges">Exchanges</Link>
             <Link to="/news">News</Link>
           </Space>
         </div>
