@@ -1,7 +1,7 @@
 import { Layout, Typography, Space } from "antd";
 import React from "react";
 import { Link, Route, Routes } from "react-router-dom";
-import "./App.css";
+import "./app.css"
 import {
   Navbar,
   Homepage,

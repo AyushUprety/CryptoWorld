@@ -1,10 +1,12 @@
 import React from "react";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { useGetNewsQuery } from "../services/coinnewsapi";
 import { CategoryScale } from "chart.js";
 import { Select, Typography, Row, Col, Avatar, Card } from "antd";
 import moment from "moment";
 import { useGetCryptosQuery } from "../services/coinrankingapi";
+import Loader from './Loader'
+
 const { Option } = Select;
 
 const { Text, Title } = Typography;
@@ -14,11 +16,13 @@ const Cryptonews = ({ simplified }) => {
   const { data } = useGetCryptosQuery(12);
   const demoImage =
     "https://www.bing.com/th?id=OVFT.mpzuVZnv8dwIMRfQGPbOPC&pid=News";
+    
   const { data: cryptoNews, isFetching } = useGetNewsQuery({
     newsCategory,
     count: simplified ? 6 : 12,
   });
-  if (isFetching) return "loading...";
+  if (!cryptoNews?.value) return <Loader />;
+
   console.log(cryptoNews?.value);
   return (
     <Row gutter={[24, 24]}>
@@ -42,7 +46,9 @@ const Cryptonews = ({ simplified }) => {
           </Select>
         </Col>
       )}
+      
       {cryptoNews.value.map((news, i) => (
+        
         <Col xs={24} sm={12} lg={8} key={i}>
           <Card hoverable className="news-card">
             <a href={news.url} target="_blank" rel="noreferrer">
@@ -64,6 +70,7 @@ const Cryptonews = ({ simplified }) => {
               <div className="provider-container">
                 <div>
                   <Avatar
+                 
                     src={
                       news.provider[0]?.image?.thumbnail?.contentUrl ||
                       demoImage

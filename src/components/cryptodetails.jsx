@@ -20,7 +20,7 @@ import {
   useGetCryptoHistoryQuery,
 } from "../services/coinrankingapi";
 import Loader from "./Loader";
-import LineChart from "./LineChart";
+import LineChart from "./lineChart";
 
 const { Title, Text } = Typography;
 const { Option } = Select;
